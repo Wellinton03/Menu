@@ -1,7 +1,7 @@
 package com.example.menu.controller;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.Optional;     
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -27,7 +27,7 @@ public class FoodController {
     private FoodRepository repository;
 
     @PostMapping
-    public Long saveFood(@RequestBody FoodRequestDTO data){
+    public String saveFood(@RequestBody FoodRequestDTO data){
         Food foodData = new Food(data);
         
         Food saveFood = repository.save(foodData);
@@ -40,7 +40,7 @@ public class FoodController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<FoodRequestDTO> updateFood(@PathVariable Long id, @RequestBody FoodRequestDTO foodRequestDTO) {
+    public ResponseEntity<FoodRequestDTO> updateFood(@PathVariable String id, @RequestBody FoodRequestDTO foodRequestDTO) {
         
         Optional<Food> optionalFood = repository.findById(id);
 
@@ -63,7 +63,7 @@ public class FoodController {
     }
 
     @DeleteMapping("/{id}")
-        public ResponseEntity<Void> deleteFood(@PathVariable Long id) {
+        public ResponseEntity<Void> deleteFood(@PathVariable String id) {
             if ( repository.existsById(id)) {
                 repository.deleteById(id);
                 return ResponseEntity.ok().build();
